@@ -1,0 +1,54 @@
+version: '3.7'
+
+services:
+  node-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASSWORD=1234
+      - DB_NAME=territorios
+      - PORT=3000
+    volumes:
+      - ./src:/home/node/app/src
+    container_name: node-server
+    # expose:
+    #   - '3000'
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    command: npm run dev #start
+
+  #postgres database
+  db:
+    image: postgres
+    restart: always #unless-stopped
+    environment:
+      # - POSTGRES_HOST: localhost
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_NAME=territorios
+      - POSTGRES_DB=territorios
+    ports:
+      - '5432:5432'
+    expose:
+      - '5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # - ./db_queries/create_db.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db_queries/create_drop_db.sql:/docker-entrypoint-initdb.d/create_drop_db.sql
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+volumes:
+  pgdata:

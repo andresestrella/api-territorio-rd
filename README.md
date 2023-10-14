@@ -1,10 +1,11 @@
 # asignacion:
-asesoría técnica ogtic / ministerio de competitividad
-Integrar el API de consumo:
-https://api-territorial.apps.madlab.com.do/api/documentation#/Territorial
+Node.js REST API that serves territory data of the Dominican Republic.  
+The server stores and fetches data from a Postgres database and implements user authentication.  
 
-## repo 
-https://github.com/andresestrella/api-territorio-rd
+Technical assessment for  OGTIC.  
+Implement the consumption API:  
+https://api-territorial.apps.madlab.com.do/api/documentation#/Territorial  
+
 
 ## stack
 Node Express, PostgreSQL, Docker-compose
